@@ -1,0 +1,16 @@
+---
+
+- name: Enable PPA for haproxy
+  command: add-apt-repository -y ppa:vbernat/haproxy-1.5
+  
+- name: Update apt-get
+  command: apt-get update
+  
+- name: Install haproxy
+  command: apt-get install haproxy
+  
+- name: Copy haproxy config file
+  copy: src=haproxy.cfg dest=/etc/haproxy
+
+- name: Restart haproxy
+  command: service haproxy restart

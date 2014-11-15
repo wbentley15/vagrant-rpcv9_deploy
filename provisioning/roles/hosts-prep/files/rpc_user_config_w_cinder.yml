@@ -22,6 +22,8 @@ environment_version: e0955a92a761d5845520a82dcca596af
 cidr_networks:
   # Cidr used in the Management network
   container: 172.29.236.0/24
+  # Cidr used in the Service network
+  # snet: 172.29.248.0/24
   # Cidr used in the VM network
   tunnel: 172.29.240.0/24
   # Cidr used in the Storage network
@@ -67,6 +69,16 @@ global_overrides:
         ip_from_q: "container"
     - network:
         group_binds:
+          - glance_api
+          - cinder_api
+          - cinder_volume
+          - nova_compute
+        type: "raw"
+        container_bridge: "br-storage"
+        container_interface: "eth2"
+        ip_from_q: "storage"
+    - network:
+        group_binds:
           - neutron_linuxbridge_agent
         container_bridge: "br-vxlan"
         container_interface: "eth10"
@@ -103,9 +115,9 @@ compute_hosts:
     ip: 172.29.236.10
 
 # User defined Storage Hosts, this should be a required group
-#storage_hosts:
-#  cinder1:
-#    ip: 172.29.236.6
+storage_hosts:
+  cinder1:
+    ip: 172.29.236.6
     # "container_vars" can be set outside of all other options as 
     # host specific optional variables.
     container_vars:
