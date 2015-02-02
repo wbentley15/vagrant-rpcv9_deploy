@@ -125,9 +125,9 @@ compute_hosts:
           volume_backend_name: LVM_iSCSI
 
 # User defined Logging Hosts, this should be a required group
-log_hosts:
-  logger1:
-    ip: 172.29.236.5
+#log_hosts:
+#  logger1:
+#    ip: 172.29.236.5
 
 # User defined Networking Hosts, this should be a required group
 network_hosts:
